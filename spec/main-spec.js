@@ -85,14 +85,14 @@ describe('Unit test', () => {
     });
 });
 
-// describe('Unit test', () => {
-//     it('3 - Calculate original sum price of the selected items', () => {
-//         let inputs = ["ITEM0001 x 1", "ITEM0013 x 2", "ITEM0022 x 1"];
-//         let formattedInputs = formatInputs(inputs);
-//         const allItemsInfo = loadAllItems(); // 所有菜品信息
-//         let eachItemInfo = getEachItemInfo(formattedInputs, allItemsInfo);
-//         const actualResult = calculateOriginalSumPrice(eachItemInfo);
-//         const expectResult = 38.00;
-//         expect(expectResult).toBe(actualResult);
-//     });
-// });
+describe('Unit test', () => {
+    it('3 - Calculate original sum price of the selected items', () => {
+        let inputs = ["ITEM0001 x 1", "ITEM0013 x 2", "ITEM0022 x 1"];
+        let formattedInputs = formatInputs(inputs);
+        const allItemsInfo = loadAllItems(); // 所有菜品信息
+        let eachItemInfo = getEachItemInfo(formattedInputs, allItemsInfo);
+        const actualResult = calculateOriginalSumPrice(eachItemInfo);
+        const expectResult = 38.00;
+        expect(expectResult).toBe(actualResult);
+    });
+});

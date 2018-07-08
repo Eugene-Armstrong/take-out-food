@@ -13,7 +13,7 @@ function bestCharge(selectedItems) {
     // 2 整合获取已点各个菜品信息
     let eachItemInfo = getEachItemInfo(formatInputs, allItemsInfo);
     // 3 计算已点菜品优惠前总价
-    // let originalSumPrice = calculateOriginalSumPrice(eachItemInfo);
+    let originalSumPrice = calculateOriginalSumPrice(eachItemInfo);
     // 4-1 计算第1种优惠下所有已点菜品总价
     // let discSumPrice1 = calculateDiscSumPrice1(eachItemInfo,promotions);
 

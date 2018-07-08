@@ -1,24 +1,24 @@
 {
-  "name": "take-out-food",
+  "name": "gpst-js-basic-practice",
   "version": "1.0.0",
-  "description": "## 考试目标",
-  "main": "index.js",
+  "description": "Powered by ThoughtWorks School",
+  "main": "app.js",
   "scripts": {
-    "test": "node run-test.js && exit 1"
+    "start": "node app.js",
+    "test": "node run-tests.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/freewind/take-out-food.git"
+    "url": "git+https://github.com/tws-stack/gpst-js-basic-practice.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "ThoughtWorks School",
+  "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/freewind/take-out-food/issues"
+    "url": "https://github.com/tws-stack/gpst-js-basic-practice/issues"
   },
-  "homepage": "https://github.com/freewind/take-out-food#readme",
+  "homepage": "https://school.thoughtworks.cn",
   "devDependencies": {
-    "jasmine": "^2.4.1",
-    "jasmine-console-reporter": "^1.2.6"
+    "jasmine": "^3.1.0",
+    "jasmine-console-reporter": "^3.0.2"
   }
 }

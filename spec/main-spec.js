@@ -96,3 +96,17 @@ describe('Unit test', () => {
         expect(expectResult).toBe(actualResult);
     });
 });
+
+describe('Unit test', () => {
+    it('4-1 - Calculate sum price of the selected items with discount-1', () => {
+        let inputs = ["ITEM0001 x 1", "ITEM0013 x 2", "ITEM0022 x 1"];
+        let formattedInputs = formatInputs(inputs);
+        const allItemsInfo = loadAllItems(); // 所有菜品信息
+        const promotions = loadPromotions(); // 所有优惠方式
+        let eachItemInfo = getEachItemInfo(formattedInputs, allItemsInfo);
+        let originalSumPrice = calculateOriginalSumPrice(eachItemInfo);
+        const actualResult = calculateDiscSumPrice1(eachItemInfo,promotions,originalSumPrice);
+        const expectResult = 25.00;
+        expect(expectResult).toBe(actualResult);
+    });
+});

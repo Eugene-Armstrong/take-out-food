@@ -7,7 +7,7 @@ const { loadPromotions } = require('../main/promotions');
 const allItemsInfo = loadAllItems();
 const promotions = loadPromotions();
 
-function bestCharge(selectedItems) {
+function getBestCharge(selectedItems) {
     // 1 格式化输入
     let formattedInputs = formatInputs(selectedItems);
     // 2 整合获取已点各个菜品信息
@@ -18,8 +18,8 @@ function bestCharge(selectedItems) {
     let discSumPrice1 = calculateDiscSumPrice1(eachItemInfo, promotions, originalSumPrice);
     // 4-2 计算第2种优惠下所有已点菜品总价
     let discSumPrice2 = calculateDiscSumPrice2(originalSumPrice);
-
     // 5 获取最佳优惠总价
+    let bestCharge = calculateBestCharge(discSumPrice1, discSumPrice2);
 
     // 6 返回最终汇总信息
     console.info(formattedInputs);
@@ -104,11 +104,23 @@ function calculateDiscSumPrice2(originalSumPrice) {
     return discSumPrice2;
 }
 
+/**
+ * 获取最佳优惠总价
+ * @param {优惠1总价} discSumPrice1 
+ * @param {优惠2总价} discSumPrice2 
+ */
+function calculateBestCharge(discSumPrice1, discSumPrice2) {
+    //直接比对计算 (不过若这样写 参数顺序就不能变)
+    let bestCharge = discSumPrice1 <= discSumPrice2 ? discSumPrice1 : discSumPrice2;
+    return bestCharge;
+}
+
 module.exports = {
-    bestCharge,
+    getBestCharge,
     formatInputs,
     getEachItemInfo,
     calculateOriginalSumPrice,
     calculateDiscSumPrice1,
-    calculateDiscSumPrice2
+    calculateDiscSumPrice2,
+    calculateBestCharge
 }

@@ -11,7 +11,7 @@ function bestCharge(selectedItems) {
     // 1 格式化输入
     let formattedInputs = formatInputs(selectedItems);
     // 2 整合获取已点各个菜品信息
-    // let eachItemInfo = getEachItemInfo(formatInputs, allItemsInfo);
+    let eachItemInfo = getEachItemInfo(formatInputs, allItemsInfo);
     // 3 计算已点菜品优惠前总价
     // let originalSumPrice = calculateOriginalSumPrice(eachItemInfo);
     // 4-1 计算第1种优惠下所有已点菜品总价
@@ -49,18 +49,19 @@ module.exports = {
 /**
  * 比对并获取已点菜品信息 12 lines
  * @param {已点菜品信息} eachItemInfo 
- * @param {所有优惠方式} promotions 
  */
-function getEachItemInfo(eachItemInfo, promotions) {
-    let discSumPrice1 = 0;
-    for (let eachItemObj of eachItemInfo) {
-        for (let promotionId of promotions[1].items) {
-            if (eachItemObj.id === promotionId) {
-                discSumPrice1 += eachItemObj.count * (eachItemObj.price/2)
+function getEachItemInfo(formatInputs, allItemsInfo) {
+    let eachItemInfo = [];
+    for (let allItemsObj of allItemsInfo) {
+        for (let formatInputObj of formatInputs) {
+            if (formatInputObj.id === allItemsObj.id) {
+                const { id, name, price } = allItemsObj;
+                const { count } = formatInputObj;
+                eachItemInfo.push({ id, name, price, count });
             }
         }
     }
-    return discSumPrice1;
+    return eachItemInfo;
 }
 
 /**
@@ -77,21 +78,19 @@ function calculateOriginalSumPrice(eachItemInfo) {
 
 /**
  * 计算第1种优惠下所有菜品总价 12 lines
- * @param {格式化输入} formatInputs 
- * @param {所有菜品信息} allItemsInfo 
+ * @param {已点菜品信息} eachItemInfo 
+ * @param {所有优惠方式} promotions 
  */
-function calculateDiscSumPrice1(formatInputs, allItemsInfo) {
-    let eachItemInfo = [];
-    for (let allItemsObj of allItemsInfo) {
-        for (let formatInputObj of formatInputs) {
-            if (formatInputObj.id === allItemsObj.id) {
-                const { id, name, price } = allItemsObj;
-                const { count } = formatInputObj;
-                eachItemInfo.push({ id, name, price, count });
+function calculateDiscSumPrice1(eachItemInfo, promotions) {
+    let discSumPrice1 = 0;
+    for (let eachItemObj of eachItemInfo) {
+        for (let promotionId of promotions[1].items) {
+            if (eachItemObj.id === promotionId) {
+                discSumPrice1 += eachItemObj.count * (eachItemObj.price/2)
             }
         }
     }
-    return eachItemInfo;
+    return discSumPrice1;
 }
 
 module.exports = {

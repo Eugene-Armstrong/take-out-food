@@ -19,7 +19,7 @@ describe('Unit test', () => {
             { id: 'ITEM0013', count: 2 },
             { id: 'ITEM0022', count: 1 },
         ]);
-        expect(expectResult).toBe(actualResult);
+        expect(actualResult).toBe(expectResult);
     });
 });
 
@@ -34,7 +34,7 @@ describe('Unit test', () => {
             { id: 'ITEM0013', name: '肉夹馍', price: 6.00, count: 2 },
             { id: 'ITEM0022', name: '凉皮', price: 8.00, count: 1 },
         ]);
-        expect(expectResult).toBe(actualResult);
+        expect(actualResult).toBe(expectResult);
     });
 });
 
@@ -46,7 +46,7 @@ describe('Unit test', () => {
         let eachItemInfo = getEachItemInfo(formattedInputs, allItemsInfo);
         const actualResult = calculateOriginalSumPrice(eachItemInfo);
         const expectResult = 38.00;
-        expect(expectResult).toBe(actualResult);
+        expect(actualResult).toBe(expectResult);
     });
 });
 
@@ -59,7 +59,7 @@ describe('Unit test', () => {
         let originalSumPrice = calculateOriginalSumPrice(eachItemInfo);
         const actualResult = calculateDiscSumPrice1(originalSumPrice);
         const expectResult = 32.00;
-        expect(expectResult).toBe(actualResult);
+        expect(actualResult).toBe(expectResult);
     });
 });
 
@@ -73,12 +73,12 @@ describe('Unit test', () => {
         let originalSumPrice = calculateOriginalSumPrice(eachItemInfo);
         const actualResult = calculateDiscSumPrice2(eachItemInfo, promotions, originalSumPrice);
         const expectResult = 25.00;
-        expect(expectResult).toBe(actualResult);
+        expect(actualResult).toBe(expectResult);
     });
 });
 
 describe('Unit test', () => {
-    it('5 - Calculate the best charge', () => {
+    it('5 - Get the best charge information', () => {
         let inputs = ["ITEM0001 x 1", "ITEM0013 x 2", "ITEM0022 x 1"];
         let formattedInputs = formatInputs(inputs);
         const allItemsInfo = loadAllItems(); // 所有菜品信息
@@ -89,57 +89,57 @@ describe('Unit test', () => {
         let discSumPrice2 = calculateDiscSumPrice2(eachItemInfo, promotions, originalSumPrice);
         const actualResult = getBestChargeInfo(discSumPrice1, discSumPrice2, promotions);
         const expectResult = {
-            type: "指定菜品半价",
+            type: "使用优惠:\n指定菜品半价(黄焖鸡，凉皮)，省13元\n-----------------------------------\n",
             bestCharge: 25.00
         };
-        expect(JSON.stringify(expectResult)).toBe(JSON.stringify(actualResult));
+        expect(JSON.stringify(actualResult)).toBe(JSON.stringify(expectResult));
     });
 });
 
-// describe('Take out food', function () {
-//     it('should generate best charge when best is 指定菜品半价', function () {
-//       let inputs = ["ITEM0001 x 1", "ITEM0013 x 2", "ITEM0022 x 1"];
-//       let summary = bestCharge(inputs).trim();
-//       let expected = `
-//   ============= 订餐明细 =============
-//   黄焖鸡 x 1 = 18元
-//   肉夹馍 x 2 = 12元
-//   凉皮 x 1 = 8元
-//   -----------------------------------
-//   使用优惠:
-//   指定菜品半价(黄焖鸡，凉皮)，省13元
-//   -----------------------------------
-//   总计：25元
-//   ===================================`.trim()
-//       expect(summary).toEqual(expected)
-//     });
+describe('Take out food', function () {
+    it('should generate best charge when best is 指定菜品半价', function () {
+      let inputs = ["ITEM0001 x 1", "ITEM0013 x 2", "ITEM0022 x 1"];
+      let summary = bestCharge(inputs).trim();
+      let expected = `
+============= 订餐明细 =============
+黄焖鸡 x 1 = 18元
+肉夹馍 x 2 = 12元
+凉皮 x 1 = 8元
+-----------------------------------
+使用优惠:
+指定菜品半价(黄焖鸡，凉皮)，省13元
+-----------------------------------
+总计：25元
+===================================`.trim()
+      expect(summary).toEqual(expected)
+    });
 
-//     it('should generate best charge when best is 满30减6元', function () {
-//       let inputs = ["ITEM0013 x 4", "ITEM0022 x 1"];
-//       let summary = getBestCharge(inputs).trim();
-//       let expected = `
-//   ============= 订餐明细 =============
-//   肉夹馍 x 4 = 24元
-//   凉皮 x 1 = 8元
-//   -----------------------------------
-//   使用优惠:
-//   满30减6元，省6元
-//   -----------------------------------
-//   总计：26元
-//   ===================================`.trim()
-//       expect(summary).toEqual(expected)
-//     });
+    it('should generate best charge when best is 满30减6元', function () {
+      let inputs = ["ITEM0013 x 4", "ITEM0022 x 1"];
+      let summary = bestCharge(inputs).trim();
+      let expected = `
+============= 订餐明细 =============
+肉夹馍 x 4 = 24元
+凉皮 x 1 = 8元
+-----------------------------------
+使用优惠:
+满30减6元，省6元
+-----------------------------------
+总计：26元
+===================================`.trim()
+      expect(summary).toEqual(expected)
+    });
 
-//     it('should generate best charge when no promotion can be used', function () {
-//       let inputs = ["ITEM0013 x 4"];
-//       let summary = getBestCharge(inputs).trim();
-//       let expected = `
-//   ============= 订餐明细 =============
-//   肉夹馍 x 4 = 24元
-//   -----------------------------------
-//   总计：24元
-//   ===================================`.trim()
-//       expect(summary).toEqual(expected)
-//     });
+    it('should generate best charge when no promotion can be used', function () {
+      let inputs = ["ITEM0013 x 4"];
+      let summary = bestCharge(inputs).trim();
+      let expected = `
+============= 订餐明细 =============
+肉夹馍 x 4 = 24元
+-----------------------------------
+总计：24元
+===================================`.trim()
+      expect(summary).toEqual(expected)
+    });
 
-//   });
+});

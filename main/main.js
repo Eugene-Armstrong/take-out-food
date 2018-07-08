@@ -26,7 +26,15 @@ function bestCharge(selectedItems) {
     let bestChargeInfo = getBestChargeInfo(discSumPrice1, discSumPrice2, promotions);
 
     // 6 返回最终汇总信息
-    // returnSummary(bestCharge);
+    let summary = `============= 订餐明细 =============\n`;
+    for (let eachItemObj of eachItemInfo) {
+        let sumEachItem = eachItemObj.price * eachItemObj.count;
+        summary += `${eachItemObj.name} x ${eachItemObj.count} = ${sumEachItem}元\n`;
+    }
+    summary += "-----------------------------------\n" +
+        bestChargeInfo.type + "总计：" +
+        bestChargeInfo.bestCharge + "元\n===================================";
+    return summary;
 }
 
 /**
@@ -85,6 +93,8 @@ function calculateDiscSumPrice1(originalSumPrice) {
     let discSumPrice1 = 0;
     if (originalSumPrice >= 30) {
         discSumPrice1 = originalSumPrice - 6;
+    }else{
+        discSumPrice1 = originalSumPrice;
     }
     return discSumPrice1;
 }
@@ -114,36 +124,24 @@ function calculateDiscSumPrice2(eachItemInfo, promotions, originalSumPrice) {
  * @param {优惠2总价} discSumPrice2 
  * @param {优惠方式}  promotions 
  */
-function getBestChargeInfo(discSumPrice1, discSumPrice2,promotions) {
+function getBestChargeInfo(discSumPrice1, discSumPrice2, promotions) {
     let type = "", bestCharge = 0;
-    if(discSumPrice1<discSumPrice2){
+    if (discSumPrice1 === discSumPrice2) {
         bestCharge = discSumPrice1;
-        type = promotions[0].type;
-    }else if(discSumPrice1>discSumPrice2){
-        bestCharge = discSumPrice2;
-        type = promotions[1].type;
-    }else{
-        bestCharge = discSumPrice1;
+    } else {
+        if (discSumPrice1 < discSumPrice2) {
+            bestCharge = discSumPrice1;
+            type = "使用优惠:\n" + promotions[0].type +
+                "，省6元\n-----------------------------------\n";
+        } else {
+            bestCharge = discSumPrice2;
+            type = "使用优惠:\n" + promotions[1].type +
+                "(黄焖鸡，凉皮)，省13元\n-----------------------------------\n";
+        }
     }
-    let bestChargeInfo = {type,bestCharge}
-    return bestChargeInfo
+    let bestChargeInfo = { type, bestCharge };
+    return bestChargeInfo;
 }
-
-
-// function returnSummary(eachItemInfo, bestCharge) {
-//     let summary = `
-// ============= 订餐明细 =============
-// 黄焖鸡 x 1 = 18元
-// 肉夹馍 x 2 = 12元
-// 凉皮 x 1 = 8元
-// -----------------------------------
-// 使用优惠:
-// 指定菜品半价(黄焖鸡，凉皮)，省13元
-// -----------------------------------
-// 总计：25元
-// ===================================`;
-//     return summary;
-// }
 
 module.exports = {
     bestCharge,

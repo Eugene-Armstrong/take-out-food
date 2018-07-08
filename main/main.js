@@ -11,7 +11,7 @@ function bestCharge(selectedItems) {
     // 1 格式化输入
     let formattedInputs = formatInputs(selectedItems);
 
-    // 2 整合获取已点各个菜品信息
+    // 2 整合获取已点菜品信息
     let eachItemInfo = getEachItemInfo(formattedInputs, allItemsInfo);
 
     // 3 计算已点菜品优惠前总价
@@ -72,7 +72,7 @@ function getEachItemInfo(formatInputs, allItemsInfo) {
 }
 
 /**
- * 计算已点菜品优惠前总价
+ * 计算已点菜品优惠前总价 5 lines
  * @param {已点菜品信息} eachItemInfo 
  */
 function calculateOriginalSumPrice(eachItemInfo) {
@@ -84,7 +84,7 @@ function calculateOriginalSumPrice(eachItemInfo) {
 }
 
 /**
- * 计算第1种优惠下所有菜品总价 5 lines
+ * 计算第1种优惠下所有菜品总价 7 lines
  * @param {已点菜品信息} eachItemInfo 
  * @param {所有优惠方式} promotions 
  * @param {优惠前总价} originalSumPrice 
@@ -119,7 +119,7 @@ function calculateDiscSumPrice2(eachItemInfo, promotions, originalSumPrice) {
 }
 
 /**
- * 获取最佳优惠信息 12 lines
+ * 获取最佳优惠信息 16 lines
  * @param {优惠1总价} discSumPrice1 
  * @param {优惠2总价} discSumPrice2 
  * @param {优惠方式}  promotions 

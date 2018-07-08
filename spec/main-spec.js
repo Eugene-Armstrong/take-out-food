@@ -3,7 +3,8 @@ const {
     formatInputs,
     getEachItemInfo,
     calculateOriginalSumPrice,
-    calculateDiscSumPrice1
+    calculateDiscSumPrice1,
+    calculateDiscSumPrice2
 } = require('../main/main');
 const {loadAllItems} = require('../main/items');
 const {loadPromotions} = require('../main/promotions');
@@ -107,6 +108,19 @@ describe('Unit test', () => {
         let originalSumPrice = calculateOriginalSumPrice(eachItemInfo);
         const actualResult = calculateDiscSumPrice1(eachItemInfo,promotions,originalSumPrice);
         const expectResult = 25.00;
+        expect(expectResult).toBe(actualResult);
+    });
+});
+
+describe('Unit test', () => {
+    it('4-2 - Calculate sum price of the selected items with discount-2', () => {
+        let inputs = ["ITEM0001 x 1", "ITEM0013 x 2", "ITEM0022 x 1"];
+        let formattedInputs = formatInputs(inputs);
+        const allItemsInfo = loadAllItems(); // 所有菜品信息
+        let eachItemInfo = getEachItemInfo(formattedInputs, allItemsInfo);
+        let originalSumPrice = calculateOriginalSumPrice(eachItemInfo);
+        const actualResult = calculateDiscSumPrice2(originalSumPrice);
+        const expectResult = 32.00;
         expect(expectResult).toBe(actualResult);
     });
 });

@@ -15,9 +15,9 @@ function bestCharge(selectedItems) {
     // 3 计算已点菜品优惠前总价
     let originalSumPrice = calculateOriginalSumPrice(eachItemInfo);
     // 4-1 计算第1种优惠下所有已点菜品总价
-    let discSumPrice1 = calculateDiscSumPrice1(eachItemInfo,promotions,originalSumPrice);
-
+    let discSumPrice1 = calculateDiscSumPrice1(eachItemInfo, promotions, originalSumPrice);
     // 4-2 计算第2种优惠下所有已点菜品总价
+    let discSumPrice2 = calculateDiscSumPrice2(originalSumPrice);
 
     // 5 获取最佳优惠总价
 
@@ -72,16 +72,17 @@ function calculateOriginalSumPrice(eachItemInfo) {
 }
 
 /**
- * 计算第1种优惠下所有菜品总价 11 lines
+ * 计算第1种优惠下所有菜品总价 10 lines
  * @param {已点菜品信息} eachItemInfo 
  * @param {所有优惠方式} promotions 
+ * @param {优惠前总价} originalSumPrice 
  */
-function calculateDiscSumPrice1(eachItemInfo, promotions,originalSumPrice) {
+function calculateDiscSumPrice1(eachItemInfo, promotions, originalSumPrice) {
     let savePrice = 0;
     for (let eachItemObj of eachItemInfo) {
         for (let promotionId of promotions[1].items) {
             if (eachItemObj.id === promotionId) {
-                savePrice += eachItemObj.count * (eachItemObj.price/2);
+                savePrice += eachItemObj.count * (eachItemObj.price / 2);
             }
         }
     }
@@ -89,10 +90,25 @@ function calculateDiscSumPrice1(eachItemInfo, promotions,originalSumPrice) {
     return discSumPrice1;
 }
 
+/**
+ * 计算第2种优惠下所有菜品总价 5 lines
+ * @param {已点菜品信息} eachItemInfo 
+ * @param {所有优惠方式} promotions 
+ * @param {优惠前总价} originalSumPrice 
+ */
+function calculateDiscSumPrice2(originalSumPrice) {
+    let discSumPrice2 = 0;
+    if (originalSumPrice >= 30) {
+        discSumPrice2 = originalSumPrice - 6;
+    }
+    return discSumPrice2;
+}
+
 module.exports = {
     bestCharge,
     formatInputs,
     getEachItemInfo,
     calculateOriginalSumPrice,
-    calculateDiscSumPrice1
+    calculateDiscSumPrice1,
+    calculateDiscSumPrice2
 }
